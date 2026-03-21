@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>skyWX</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    .panel {
+      max-width: 560px;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .input-area {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    label {
+      font-weight: 700;
+    }
+
+    input {
+      flex: 1 1 240px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>skyWX </h1>
-  <p>staticサービス（仮）</p>
+  <main class="panel">
+    <h1>skyWX</h1>
+    <p>staticサービス</p>
+
+    <div class="input-area">
+      <label for="keyword">入力:</label>
+      <input id="keyword" type="text" placeholder="ここに入力">
+      <button type="button">送信</button>
+    </div>
+  </main>
 </body>
 </html>
