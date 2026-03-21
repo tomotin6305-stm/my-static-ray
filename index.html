@@ -54,6 +54,14 @@
       font-size: 16px;
       cursor: pointer;
     }
+
+    .response {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #e2e8f0;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -64,8 +72,34 @@
     <div class="input-area">
       <label for="keyword">入力:</label>
       <input id="keyword" type="text" placeholder="ここに入力">
-      <button type="button">送信</button>
+      <button id="submitButton" type="button">送信</button>
     </div>
+
+    <p id="response" class="response">ここにダミー返答を表示する。</p>
   </main>
+
+  <script>
+    const input = document.getElementById("keyword");
+    const button = document.getElementById("submitButton");
+    const response = document.getElementById("response");
+
+    function showDummyResponse() {
+      const value = input.value.trim();
+
+      if (!value) {
+        response.textContent = "何も入ってない。とりあえず文字を入れてから送れ。";
+        return;
+      }
+
+      response.textContent = "了解。「" + value + "」って入力されたことにして、今はダミーで返してる。";
+    }
+
+    button.addEventListener("click", showDummyResponse);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        showDummyResponse();
+      }
+    });
+  </script>
 </body>
 </html>
