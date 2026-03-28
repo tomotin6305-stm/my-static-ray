@@ -83,6 +83,20 @@
     const button = document.getElementById("submitButton");
     const response = document.getElementById("response");
 
+    function getGreetingByTime() {
+      const hour = new Date().getHours();
+
+      if (hour >= 5 && hour < 11) {
+        return "おはようございます。朝の空気みたいに軽く始めよう。";
+      }
+
+      if (hour >= 11 && hour < 18) {
+        return "こんにちは。今日の調子をここから上げていこう。";
+      }
+
+      return "こんばんは。落ち着いて見ていけば十分だ。";
+    }
+
     function showDummyResponse() {
       const value = input.value.trim();
 
@@ -100,6 +114,8 @@
         showDummyResponse();
       }
     });
+
+    response.textContent = getGreetingByTime();
   </script>
 </body>
 </html>
