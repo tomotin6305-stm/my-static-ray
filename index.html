@@ -12,75 +12,99 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      font-family: sans-serif;
-      background: #f5f7fb;
-      color: #1f2937;
       box-sizing: border-box;
+      font-family: sans-serif;
+      background:
+        radial-gradient(circle at top, #dbeafe 0%, #f8fafc 45%, #e2e8f0 100%);
+      color: #1f2937;
     }
 
     .panel {
-      max-width: 560px;
-      padding: 24px;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      width: min(100%, 620px);
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 20px;
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+      backdrop-filter: blur(8px);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #475569;
     }
 
     h1 {
-      margin-top: 0;
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .lead {
+      margin: 10px 0 0;
+      color: #475569;
+      line-height: 1.7;
     }
 
     .input-area {
-      margin-top: 20px;
+      margin-top: 24px;
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
       flex-wrap: wrap;
     }
 
     label {
+      width: 100%;
       font-weight: 700;
     }
 
     input {
-      flex: 1 1 240px;
-      padding: 10px 12px;
+      flex: 1 1 300px;
+      padding: 12px 14px;
       border: 1px solid #cbd5e1;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 16px;
+      background: #fff;
     }
 
     button {
-      padding: 10px 16px;
+      padding: 12px 18px;
       border: 0;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #0f172a;
-      color: #ffffff;
+      color: #fff;
       font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
     }
 
     .response {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 10px;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 14px;
       background: #e2e8f0;
-      line-height: 1.6;
+      line-height: 1.8;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <main class="panel">
+    <p class="eyebrow">Prototype</p>
     <h1>skyWX</h1>
-    <p>staticサービス</p>
+    <p class="lead">ツンデレ参謀AIの試作機だ。相談を投げれば、少し辛口に整理して返す。</p>
 
     <div class="input-area">
-      <label for="keyword">入力:</label>
-      <input id="keyword" type="text" placeholder="ここに入力">
+      <label for="keyword">相談内容</label>
+      <input id="keyword" type="text" placeholder="今やりたいことを入力">
       <button id="submitButton" type="button">送信</button>
     </div>
 
-    <p id="response" class="response">ここにダミー返答を表示する。</p>
+    <p id="response" class="response">返答を準備中。</p>
   </main>
 
   <script>
@@ -92,25 +116,50 @@
       const hour = new Date().getHours();
 
       if (hour >= 5 && hour < 11) {
-        return "おはようございます。朝の空気みたいに軽く始めよう。";
+        return "おはようございます。\n朝から来るとは感心だな。まずは今日片づけることを一つ決めろ。俺が整理してやる。";
       }
 
       if (hour >= 11 && hour < 18) {
-        return "こんにちは。今日の調子をここから上げていこう。";
+        return "こんにちは。\n途中で迷ってるなら、今の悩みをそのまま投げろ。無駄を削って次の一手にしてやる。";
       }
 
-      return "こんばんは。落ち着いて見ていけば十分だ。";
+      return "こんばんは。\n夜に考え込むのは悪くない。ただし一人で散らかすな。要点を出せば、俺が並べ直す。";
+    }
+
+    function buildStrategistReply(value) {
+      const openings = [
+        "ふん、悪くない着眼点だ。",
+        "仕方ない。そこは俺が整理してやる。",
+        "そのまま突っ込むのは雑だが、材料としては十分だ。"
+      ];
+
+      const guidance = [
+        "まずは目的を一文で固定しろ。",
+        "次に、今あるものと足りないものを分けて見ろ。",
+        "最後に、一番小さい一歩だけ先に試せ。"
+      ];
+
+      const opening = openings[Math.floor(Math.random() * openings.length)];
+      const guidanceText = guidance.join("\n");
+
+      return (
+        opening +
+        "\n相談は「" + value + "」だな。" +
+        "\n今の段階なら、背伸びして全部やろうとするな。" +
+        "\n" + guidanceText +
+        "\n別に甘やかすつもりはないが、その進め方ならちゃんと形になる。"
+      );
     }
 
     function showDummyResponse() {
       const value = input.value.trim();
 
       if (!value) {
-        response.textContent = "何も入ってない。とりあえず文字を入れてから送れ。";
+        response.textContent = "何も入ってない。\n考えが散らかってるなら一言でいい。素材がなければ参謀も動けない。";
         return;
       }
 
-      response.textContent = "了解。「" + value + "」って入力されたことにして、今はダミーで返してる。";
+      response.textContent = buildStrategistReply(value);
     }
 
     button.addEventListener("click", showDummyResponse);
